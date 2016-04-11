@@ -1,0 +1,39 @@
+<script type="text/ng-template" id="clinicRoomModal.html">
+    <div class="container-fluid"><br/>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Select Clinic</h4></div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="myTable">
+                    <thead>
+                    <tr>
+                        <th>Clinic Name</th>
+                        <th>Room Number</th>
+                        <th>Contact No.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.ClinicName_Clinic" placeholder="Search Clinic"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.clinicrooms.RoomNumber_CRoom" placeholder="Search Room Number"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.ContactNumber_Clinic" placeholder="Search Contact Number"></td>
+                    </tr>
+                    <tr ng-repeat="clinicroom in filtered = clinics | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit"  ng-click="setID(clinicroom)" class={{selected}}>
+                        <td>{{clinicroom.clinic.ClinicName_Clinic}}</td>
+                        <td>{{clinicroom.RoomNumber_CRoom}}</td>
+                        <td>{{clinicroom.clinic.ContactNumber_Clinic}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3" align="right">
+                            <button class="btn btn-success btn-sm" ng-disabled="id == ''" ng-click="ok()">Okay</button>
+                            <button class="btn btn-success btn-sm" ng-click="close()">Cancel</button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <pagination ng-model="currentPage" max-size="10" boundary-links="true" first-text="<<" last-text=">>" total-items="totalItems" items-per-page="entryLimit" class="pagination-sm"></pagination>
+    </div>
+</script>

@@ -1,0 +1,44 @@
+<script type="text/ng-template" id="employeeModal.html">
+    <div class="container-fluid">
+        <div class="row"><br>
+            <div class="form-group col-sm-4">
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Employee Lists</h4></div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="myTable">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Employee Name</th>
+                        <th>Address</th>
+                        <th>Contact No.</th>
+                        <th>Occupation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="no-padding"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.Name_Empl" placeholder="Search Name"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.Address_Empl" placeholder="Search Address"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.ContactNumber_Empl" placeholder="Search Contact Number"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.Position_Empl" placeholder="Search Occupation"></td>
+                    </tr>
+                    <tr ng-repeat="empl in filtered = employees | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" ng-click="setID(empl)" ng-dblclick="ok(empl)" class={{selected}}>
+                        <td ng-click="ok(empl)"><i class="fa fa-circle-o"></i></td>
+                        <td>{{empl.Name_Empl}}</td>
+                        <td>{{empl.Address_Empl}}</td>
+                        <td>{{empl.ContactNumber_Empl}}</td>
+                        <td>{{empl.Position_Empl}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><i>(Note: Click </i> <i class="fa fa-circle-o"></i><i> or double click the row to select patient..)</i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <pagination ng-model="currentPage" max-size="10" boundary-links="true" first-text="<<" last-text=">>" total-items="totalItems" items-per-page="entryLimit" class="pagination-sm"></pagination>
+    </div>
+</script>

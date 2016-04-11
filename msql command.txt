@@ -1,0 +1,12 @@
+to export
+mysqldump -u root -p devdb > devdb.sql
+
+to import
+mysql -u username -p database_name < file.sql
+
+to connect
+mysql -u root -p
+
+to delete database
+drop database databasename;
+

@@ -1,0 +1,127 @@
+<div ng-include="'app/modals/dpsModal.html'"></div>
+<div ng-include="'app/modals/clinicModal2.html'"></div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><span ng-if="!clinicCookie.clinicname"><a href="" ng-click="selectClinic(user.syspk)">Select Clinic</a></span><span ng-if="clinicCookie.clinicname"><a href="" ng-click="selectClinic(user.syspk)">{{clinicCookie.clinicname}} - {{clinicCookie.clinicroom}}</a></span></h1>
+    <p style="font-size: 18px">Clinic Room Setup Form</p>
+    <ol class="breadcrumb">
+        <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Clinic Room</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h4>Clinic Information</h4>
+                </div>
+                <form class="form-horizontal" role="form">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="inputClinic" class="col-lg-3 control-label">Clinic Name:</label>
+                                    <div class="input-group input-group-sm col-lg-7" id="inputClinic">
+                                        <input type="text" ng-model="clinicroom.clinic.ClinicName_Clinic" class="form-control input-sm" placeholder="Clinic Name">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-info btn-flat" ng-click="openClinics()" type="button">...</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress" class="col-lg-3 control-label">Clinic Address:</label>
+                                    <div class="input-group input-group-sm col-lg-7" id="inputAddress">
+                                        <input type="text" ng-model="clinicroom.clinic.Address_Clinic" class="form-control input-sm" placeholder="Address">
+                                        <span class=""></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputContact" class="col-lg-3 control-label">Contact No.:</label>
+                                    <div class="input-group input-group-sm col-lg-7" id="inputContact">
+                                        <input type="text" ng-model="clinicroom.clinic.ContactNumber_Clinic" class="form-control input-sm" placeholder="Contact Number">
+                                        <span class=""></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputRNumber" class="col-lg-3 control-label">Room Number:</label>
+                                    <div class="col-lg-4 input-group">
+                                        <input type="text" ng-model="clinicroom.RoomNumber_CRoom" class="form-control input-sm" id="inputRNumber" placeholder="Room Number ">
+                                        <span class=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12"><h4>Doctors and Secretaries</h4></div>
+                            <div class="col-lg-12">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Particulars</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr ng-repeat="dps in DPSLists">
+                                        <td>{{dps.Name}}</td></td>
+                                        <td>{{dps.DPSTable}}</td>
+                                        <td><i class="fa fa-remove" style="color:red;" ng-click="removeDPS(dps)" data-toggle="tooltip" title="Delete"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button class="btn btn-primary btn-sm" ng-click="openDPS('lg')">Add Doctor and Secretaries</button></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <div class="pull-right">
+                                <input ng-disabled="!clinicroom.clinic.ClinicName_Clinic" type="submit" ng-click="addClinicRoom()" value=" Save " class="btn btn-success btn-sm" data-dismiss="modal">
+                                <a href="#/clinic" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="position: fixed; bottom: 0">
+
+</section>
+
+<!-- Right Sidebar -->
+
+<aside style="position: fixed;" class="control-sidebar control-sidebar-light">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li><a data-toggle="tab">Clinic Lists</a></li>
+    </ul>
+    <div class="tab-content" style="overflow: scroll; height: 90vh">
+        <!-- Home tab content -->
+        <div>
+
+            <ul class="control-sidebar-menu">
+                <li ng-repeat="clinic in clinicrooms | orderBy: 'ClinicName_Clinic'">
+                    <h4 class="control-sidebar-subheading"><i class="fa fa-building-o"></i> {{clinic.ClinicName_Clinic}}</h4>
+                    <p ng-repeat="cr in clinic.clinicrooms">
+                        <a ng-href="/#/clinicroom/{{cr.SysPK_CRoom}}">{{cr.RoomNumber_CRoom}}</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
+</div>
+
+<!-- Page Script -->
+<script>
+    $(function () {
+        $('body').addClass('control-sidebar-open');
+        $("#datemask").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+    })
+    $('a.tree-toggler').click(function () {
+        $(this).parent().children('ul.tree').toggle(300);
+    });
+</script>

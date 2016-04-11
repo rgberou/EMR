@@ -1,0 +1,390 @@
+<div ng-include="'app/modals/medicineSetupModal.html'"></div>
+<div ng-include="'app/modals/itemModal.html'"></div>
+<div ng-include="'app/modals/icd10Modal.html'"></div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><span ng-if="!clinicCookie.clinicname"><i class="fa fa-hospital-o"></i>  <a href="" ng-click="selectClinic(user.syspk)">Select Clinic</a></span><span ng-if="clinicCookie.clinicname"><a href="" ng-click="selectClinic(user.syspk)">{{clinicCookie.clinicname}} - {{clinicCookie.clinicroom}}</a></span></h1>
+    <p style="font-size: 18px">Dashboard</p>
+    <ol class="breadcrumb">
+        <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <form class="form-horizontal" role="form">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h4>Patient Information</h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <img class="profile-user-img img-responsive img-circle" src="{{dataUrls}}" alt="User profile picture">
+                                </div>
+                                <div class="col-md-5">
+                                    <h4>{{patient.Name_Patient}}</h4>
+                                    <p>{{patient.Address_Patient}}</p>
+                                    <p>{{patient.Birthdate_Patient | date: 'MMMM  dd, yyyy'}}</p>
+                                    <p>{{patient.Status_Patient}}</p>
+                                    <p>{{patient.Occupation_Patient}}</p>
+                                </div>
+                                <div class="col-md-5">
+                                    <h1 ng-if="patientToServe" class="text-green">Visit {{department.VisitCount_Department}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Patient Informations -->
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h4>Other Details</h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="datemask" class="col-lg-2 control-label">Date:</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" ng-model="transaction.Date_Trans" class="form-control input-sm" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask id="datemask">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="doctor" class="col-lg-2 control-label">Doctor:</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" ng-model="doctor.Name_Doctor" class="form-control input-sm" id="doctor">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Other Details -->
+        </form>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="/dashboard#notes" data-toggle="tab">Clinical Notes</a></li>
+                <li class=""><a href="/dashboard#medical" data-toggle="tab">Other Medical Info</a></li>
+                <li class=""><a href="/dashboard#requests" data-toggle="tab">Request</a></li>
+                <li class=""><a href="/dashboard#prescription" data-toggle="tab">E-Prescription</a></li>
+                <!--<li class=""><a href="/transactions/department#products" data-toggle="tab">Product & Services Used</a></li>
+                <li class=""><a href="/transactions/department#entries" data-toggle="tab">Entries</a></li> -->
+            </ul>
+            <div class="tab-content">
+                <!--- Clinical Notes --->
+                <div class="active tab-pane" id="notes">
+                    <div class="row">
+                        <div class="col-lg-12"><h4>Reasons for Encounter</h4></div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea ng-model="department.ReasonForEncounter_Department" rows="2" class="form-control" placeholder="Reasons for Encounter.."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- Reasons For Encounter -->
+
+                    <div class="row">
+                        <div class="col-lg-12"><h4>Impressions</h4></div>
+                        <div class="col-lg-12">
+                            <textarea rows="3" ng-model="department.Impression_Department" class="form-control" placeholder="Impressions . . ."></textarea>
+                        </div>
+                    </div>  <!-- Impression -->
+
+                    <div class="row">
+                        <div class="col-lg-12"><h4>Results for Laboratory, Diagnostics, etc..</h4></div>
+                        <div class="col-lg-12">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><input type="submit" class="btn btn-primary btn-sm" value="Select file to upload">
+                                        <i>(Click this to add results for Laboratory and Diagnostics)</i></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12"><h4>Plan of Care</h4></div>
+                        <div class="col-lg-12"><h5>1. Laboratory and Diagnostics</h5></div>
+                        <div class="col-lg-12">
+                            <table class="table table-condensed">
+                                <tr ng-repeat="requestdiag in requestsDiagnostics">
+                                    <td>{{requestdiag.Particular_Request}}</td>
+                                </tr>
+                            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><input ng-change="diagChanged()" type="text" class="form-control input-sm" ng-model="tempDiag.Particular_Request" placeholder="Add Laboratory and Diagnostics"></td>
+                                </tr>
+                                <tr>
+                                    <td ng-if="isChangedDiag"><input type="submit" class="btn btn-primary btn-sm" ng-click="addDiagnostics(tempDiag)" value="Add Laboratory and Diagnostics">
+                                        <i>(Click this to add data in the list of Laboratory and Diagnostics)</i></td>
+                                </tr>
+                            </table>
+                        </div> <!-- End Diagnostics -->
+                        <div class="col-lg-12"><h5>2. Planned Procedures</h5></div>
+                        <div class="col-lg-12">
+                            <table class="table table-condensed">
+                                <tr ng-repeat="requestprocedure in requestsProcedures">
+                                    <td>{{requestprocedure.Particular_Request}}</td>
+                                </tr>
+                            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><input ng-change="procedChanged()" type="text" class="form-control input-sm" ng-model="tempProced.Particular_Request" placeholder="Add Procedures"></td>
+                                </tr>
+                                <tr>
+                                    <td ng-if="isChangedProced"><input type="submit" class="btn btn-primary btn-sm" ng-click="addProcedures(tempProced)" value="Add Procedures">
+                                        <i>(Click this to add data in the list of Planned Procedures)</i></td>
+                                </tr>
+                            </table>
+                        </div> <!-- End Procedures -->
+                        <div class="col-lg-12"><h5>3. Medications</h5></div>
+                        <div class="col-lg-12">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <th style="width: 15px">#</th>
+                                    <th>Medicine</th>
+                                    <th>Strength</th>
+                                    <th>Form</th>
+                                    <th># of Med</th>
+                                    <th>Dosage</th>
+                                    <th>Instruction</th>
+                                </tr>
+                                <tr ng-repeat="medicine in medicines">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{medicine.Medicine_Prescription}}</td>
+                                    <td>{{medicine.Strength_Prescription}}</td>
+                                    <td>{{medicine.Form_Prescription}}</td>
+                                    <td>{{medicine.NoOfMedicine_Prescription}}</td>
+                                    <td>{{medicine.Dosage_Prescription}}</td>
+                                    <td>{{medicine.Instruction_Prescription}}</td>
+                                </tr>
+                            </table>
+                            <table class="table table-condensed">
+                                <tr class="form-group">
+                                    <form role="form">
+                                        <td><input ng-change="medChanged()" type="text" class="form-control input-sm" ng-model="tempMed.Medicine_Prescription" placeholder="Medicine"></td>
+                                        <td><input type="text" class="form-control input-sm" ng-model="tempMed.Strength_Prescription" placeholder="Strength"></td>
+                                        <td><input type="text" class="form-control input-sm" ng-model="tempMed.Form_Prescription" placeholder="Form"></td>
+                                        <td><input type="text" class="form-control input-sm" ng-model="tempMed.NoOfMedicine_Prescription" placeholder="# of Medicine"></td>
+                                        <td><input type="text" class="form-control input-sm" ng-model="tempMed.Dosage_Prescription" placeholder="Dosage"></td>
+                                        <td><input type="text" class="form-control input-sm" ng-model="tempMed.Instruction_Prescription" placeholder="Instruction"></td>
+                                    </form>
+                                </tr>
+                                <tr ng-if="isChangedMed">
+                                    <td></td>
+                                    <td colspan="6"><input type="submit" class="btn btn-primary btn-sm" ng-click="addmedicine(tempMed)" value="Add Medicine">
+                                        <i>(Click this to add medicine in the list of Medications)</i></td>
+                                </tr>
+                            </table>
+                        </div> <!-- End Medications -->
+                        <div class="col-lg-12"><h5>4. Other Plans</h5></div>
+                        <div class="col-lg-12">
+                            <textarea rows="3" ng-model="department.OtherPlan_Department" class="form-control" placeholder="Other Plans . . ."></textarea>
+                        </div>
+                        <div class="col-lg-12"><h5>5. Recommendations</h5></div>
+                        <div class="col-lg-12">
+                            <textarea rows="3" ng-model="department.Recommendations_Department" class="form-control" placeholder="Recommendations . . ."></textarea>
+                        </div>
+                    </div>  <!-- Plan of Care -->
+
+                    <div class="row">
+                        <div class="col-lg-12"><h4>Diagnoses</h4></div>
+                        <div class="col-lg-12">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <th style="width: 150px" >ICD10 Code</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr ng-repeat="diagnose in diagnoses">
+                                    <td>{{diagnose.SysFK_ICD10_Diagnoses}}</td>
+                                    <td>{{diagnose.Diagnoses_Diagnoses}}</td>
+                                </tr>
+                                <tr>
+                                    <td><button class="btn btn-primary btn-sm" ng-click="openICD('md')">Add Diagnoses</button></td>
+                                    <td colspan="6"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>  <!-- Diagnoses -->
+                </div>
+                <!--- END of Clinical Notes --->
+
+                <!--- Other Medical Info --->
+                <div class="tab-pane" id="medical">
+                    <div class="row">
+                        <div class="col-lg-12">Select Format:</div>
+                        <div class="col-lg-12">
+                            <button class="btn btn-default btn-sm" ng-click="setFormat('Pediatrics')">Pediatrics</button>
+                            <button class="btn btn-default btn-sm" ng-click="setFormat('Adult Medicine')">Adult Medicine</button>
+                            <button class="btn btn-default btn-sm" ng-click="setFormat('OB-Gyne')">OB-Gyne</button>
+                            <button class="btn btn-default btn-sm" ng-click="setFormat('Surgery')">Surgery</button>
+                            <button class="btn btn-default btn-sm" ng-click="setFormat('PE')">Complete Physical Examination</button>
+                        </div>
+                    </div>
+                    <div class="row" ng-hide="department.Module_Department !== 'Surgery'"> <!--   -->
+                        <div ng-include="'app/dashboard/surgery.html'"></div>
+                    </div> <!-- END of Surgery -->
+                    <div class="row" ng-hide="department.Module_Department !== 'Pediatrics' && department.Module_Department !== 'Adult Medicine'"> <!--   -->
+                        <div ng-include="'app/dashboard/medicines.html'"></div>
+                    </div> <!-- END of Pediatrics and Adult Medicine -->
+                    <div class="row" ng-hide="department.Module_Department !== 'OB-Gyne'"> <!-- OB-Gyne -->
+                        <div ng-include="'app/dashboard/ob-gyn.html'"></div>
+                    </div> <!-- END of OB-Gyne -->
+                </div>
+                <!--- END of Other Medical Info --->
+
+                <!--- Requests --->
+                <div class="tab-pane" id="requests">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn btn-primary btn-sm" onclick="printDiv('printRequests')"> <i class="fa fa-print"></i> Print Request</button>
+                        </div>
+                        <hr/>
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10" id="printRequests" style="border: 1px solid #000000; padding: 10px 0 10px 0">
+                            <div class="col-lg-1">
+                                <!-- <img src="../../img/hopslogo.jpg" width="100"/> -->
+                            </div>
+                            <div class="col-lg-10">
+                                <p style="text-align: center">Health Outpatient Services</p>
+                                <p>
+                                    <span class="col-lg-5">Name: <u>{{patient.Name_Patient}}</u></span>
+                                    <span class="col-lg-2">Age: <u>{{birthdate | ageFilter}}</u></span>
+                                    <span class="col-lg-2">Sex: <u>{{patient.Gender_Patient}}</u></span>
+                                    <span class="col-lg-3">Date: <u>{{dateToday | date: 'MM-dd-yy'}}</u></span>
+                                </p>
+                                <div>Laboratory and Diagnostics</div>
+                                <div ng-repeat="requestdiag in requestsDiagnostics">
+                                    <p>{{requestdiag.Particular_Request}}</p>
+                                </div>
+
+                                <div>Procedures</div>
+                                <div ng-repeat="requestProced in requestsProcedures">
+                                    <p>{{requestProced.Particular_Request}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                </div>
+                <!-- END of Requests-->
+
+                <!--- PRESCRIPTION --->
+                <div class="tab-pane" id="prescription">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn btn-primary btn-sm" onclick="printDiv('printPrescription')"> <i class="fa fa-print"></i> Print Prescription</button>
+                        </div>
+                        <hr/>
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10" id="printPrescription" style="border: 1px solid #000000; padding: 10px 0 10px 0">
+                            <div class="col-lg-1">
+                                <!-- <img src="../../img/hopslogo.jpg" width="100"/> -->
+                            </div>
+                            <div class="col-lg-10">
+                                <p style="text-align: center">Health Outpatient Services</p>
+                                <p>
+                                    <span class="col-lg-5">Name: <u>{{patient.Name_Patient}}</u></span>
+                                    <span class="col-lg-2">Age: <u>{{birthdate | ageFilter}}</u></span>
+                                    <span class="col-lg-2">Sex: <u>{{patient.Gender_Patient}}</u></span>
+                                    <span class="col-lg-3">Date: <u>{{dateToday | date: 'MM-dd-yy'}}</u></span>
+                                </p>
+                                <p><img src="../../img/expand_rx.gif" width="40"/></p>
+                                <div ng-repeat="medicine in medicines">
+                                        <p>
+                                            <span class="col-lg-1">{{$index+1}}</span>
+                                            <span class="col-lg-6">{{medicine.Medicine_Prescription}}</span>
+                                            <span class="col-lg-2">{{medicine.Strength_Prescription}}</span>
+                                            <span class="col-lg-2">{{medicine.Form_Prescription}}</span>
+                                            <span class="col-lg-1">{{medicine.NoOfMedicine_Prescription}}</span>
+                                        </p>
+                                        <p>
+                                            <span class="col-lg-1"></span>
+                                            <span class="col-lg-5">{{medicine.Dosage_Prescription}}</span>
+                                            <span class="col-lg-6">{{medicine.Instruction_Prescription}}</span>
+                                        </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                </div>
+                <!-- END of PRESCRIPTION-->
+            </div> <!-- Tab Contents -->
+            <div class="pull-right" style="padding-top: 3px">
+                <button class="btn btn-primary btn-sm pull-right" ng-click="addTransaction()"><i class="fa fa-floppy-o"></i> Save</button>
+            </div>
+        </div><!-- /.nav-tabs-custom -->
+    </form>
+</section>
+
+<!-- Right Sidebar -->
+
+<aside class="control-sidebar control-sidebar-light">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li><a>Queued Patients</a></li>
+    </ul>
+    <div class="tab-content">
+        <!-- Queued Patients -->
+        <div>
+            <ul class="control-sidebar-menu">
+                <li ng-repeat="encounter in encounters.data | orderBy: 'PriorityNumber_Encounter'" ng-click="selectPatientToServe(encounter)">
+                    <a href="javascript:;">
+                        <i class="menu-icon bg-red">{{encounter.PriorityNumber_Encounter}}</i>
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">{{encounter.patient.Name_Patient}}</h4>
+                            <p>{{encounter.patient.Address_Patient}}</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
+</div>
+
+<!-- Page Script -->
+<script>
+    $(function () {
+        $('body').addClass('control-sidebar-open');
+        $("#datemask").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        });
+    });
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>

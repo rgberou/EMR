@@ -1,0 +1,86 @@
+<section  ng-if="isAuthenticated()" class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="../../assets/img/avatar_2xx.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p><a ng-href="/#/profile/{{user.syspk}}">{{user.name}}</a></p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="treeview">
+            <a href="#/newsfeed">
+                <i class=""></i> <span>Newsfeed</span>
+            </a>
+        </li>
+
+        <li class="treeview" ng-if="user.rights === 'secretary'">
+            <a href="#/patient-encounter">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="treeview" ng-if="user.rights === 'doctor' || user.rights === 'student'">
+            <a href="#/dashboard">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="treeview" ng-if="user.rights === 'administrator'">
+            <a href="">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#/patient-encounter"><i class="fa fa-dashboard"></i> Secretary</a></li>
+                <li><a href="#/dashboard"><i class="fa fa-dashboard"></i> Doctor</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+            <a href="">
+                <i class="fa fa-users"></i> <span>Setups</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li ng-if="user.rights === 'administrator'"><a href="#/user-setup"><i class="fa fa-user-plus"></i> Add User</a></li>
+                <li ng-if="user.rights === 'administrator' || user.rights === 'student'"><a href="#/patient-setup"><i class="fa fa-user-plus"></i> Add Patient</a></li>
+                <li ng-if="user.rights === 'administrator'"><a href="#/doctor-setup"><i class="fa fa-user-plus"></i> Add Doctor</a></li>
+                <li ng-if="user.rights === 'administrator' || user.rights === 'doctor'"><a href="#/sect-setup"><i class="fa fa-user-plus"></i> Add Secretary</a></li>
+                <li ng-if="user.rights !== 'student'"><a href="#/clinicroom"><i class="fa fa-building-o"></i> Add Clinic</a></li>
+                <!-- <li><a href="#/clinicroom"><i class="fa fa-building-o"></i> Add Clinic Room</a></li> -->
+            </ul>
+        </li>
+
+        <li class="treeview" ng-hide="true">
+            <a href="">
+                <i class="fa fa-money"></i> <span>Accounting</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#/#"><i class="fa fa-circle-o"></i> Billing</a></li>
+                <li><a href="#/#"><i class="fa fa-bar-chart"></i> Reports</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+            <a href="">
+                <i class="fa fa-file-text-o"></i> <span>Master Lists</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li ng-if="user.rights === 'administrator'"><a href="#/users"><i class="fa fa-users"></i> Users</a></li>
+                <li><a href="#/patients"><i class="fa fa-users"></i> Patients</a></li>
+                <li ng-if="user.rights !== 'student'"><a href="#/doctors"><i class="fa fa-users"></i> Doctors</a></li>
+                <li ng-hide="true"><a href="#/coas"><i class="fa fa-users"></i> Chart of Accounts</a></li>
+            </ul>
+        </li>
+        <li ng-hide="true" class="header">CLINICS</li>
+        <li ng-hide="true" ng-repeat="clinic in rclinics">
+            <a href="">
+                <i class="fa fa-dashboard"></i> <span>{{clinic.clinicroom.clinic.ClinicName_Clinic}} - {{clinic.clinicroom.RoomNumber_CRoom}}</span>
+            </a>
+        </li>
+    </ul>
+</section>
+
+<section ng-if="!isAuthenticated()" class="sidebar">
+</section>

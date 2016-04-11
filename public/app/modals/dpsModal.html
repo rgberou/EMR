@@ -1,0 +1,44 @@
+<!-- dps (Doctor, Patient, Secretary) -->
+
+<script type="text/ng-template" id="dpsModal.html">
+    <div class="container-fluid"><br/>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Select Doctor or Secretary</h4>
+                <a style="cursor: pointer" ng-click="addNewSecretary(dpss[0].SysPKCJunc)"><h5>(Add New)</h5></a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="myTable">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Particulars</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.NameDPS" placeholder="Search Name"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.AddressDPS" placeholder="Search Address"></td>
+                        <td class="no-padding"> <input type="text" class="form-control input-sm" ng-model="search.TableDPS" placeholder="Search Profession"></td>
+                    </tr>
+                    <tr ng-repeat="dps in filtered = dpss | orderBy : 'NameDPS' | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit"  ng-click="setID(dps)" class={{selected}}>
+                        <td>{{dps.NameDPS}}</td>
+                        <td>{{dps.AddressDPS}}</td>
+                        <td>{{dps.TableDPS}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3" align="right">
+                            <button class="btn btn-success btn-sm" ng-disabled="id == ''" ng-click="ok()">Okay</button>
+                            <button class="btn btn-success btn-sm" ng-click="close()">Cancel</button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <pagination ng-model="currentPage" max-size="10" boundary-links="true" first-text="<<" last-text=">>" total-items="totalItems" items-per-page="entryLimit" class="pagination-sm"></pagination>
+    </div>
+</script>

@@ -1,0 +1,64 @@
+<div class="col-lg-12"><h3>{{department.Module_Department}} Department</h3></div>
+<div class="col-lg-12"><h5>Symptoms</h5></div>
+<div class="col-lg-2 form-group">
+    <div class="col-lg-4">
+        <button type="button" class="btn btn-default btn-sm" ng-model="selectedSymptoms" data-html="1" data-multiple="1" data-animation="am-flip-x" bs-options="symptoms.value as symptoms.label for symptoms in selectSymptoms" bs-select>
+            Action <span class="caret"></span>
+        </button>
+    </div>
+</div> <!-- Symptoms -->
+<div class="col-lg-12"><textarea rows="2" ng-model="department.SymptomsDesc_Medicine" class="form-control" placeholder="Symptoms Description. . ."></textarea></div>
+<div class="col-lg-12"><h5>Pain Location</h5></div>
+<div class="col-lg-2 form-group">
+    <div class="col-lg-4">
+        <button type="button" class="btn btn-default btn-sm" ng-model="selectedPainLocation" data-html="1" data-multiple="1" data-animation="am-flip-x" bs-options="painL.value as painL.label for painL in selectPainLocation" bs-select>
+            Action <span class="caret"></span>
+        </button>
+    </div>
+</div> <!-- Pain Location -->
+<div class="col-lg-12"><textarea rows="2" ng-model="department.PainDesc_Medicine" class="form-control" placeholder="Pain Location Description. . ."></textarea></div>
+
+<div class="col-lg-12"><h4>History of Present Illness</h4></div>
+<div class="col-lg-12"><h5>Duration</h5></div>
+<div class="col-lg-4 form-group">
+    <div class="col-lg-4">
+        <button type="button" class="btn btn-default btn-sm" ng-model="selectedDuration" data-html="1" data-multiple="1" data-animation="am-flip-x" bs-options="durations.value as durations.label for durations in selectDuration" bs-select>
+            Action <span class="caret"></span>
+        </button>
+    </div>
+</div> <!-- Duration -->
+<div class="col-lg-2"><label>No. of Months: </label></div>
+<div class="col-lg-2"><input type="text" ng-model="department.MonthsHPI_Surgery" class="form-control input-sm" placeholder="# of Months"></div>
+<div class="col-lg-2"><label>No. of Years: </label></div>
+<div class="col-lg-2"><input type="text" ng-model="department.YearsHPI_Surgery" class="form-control input-sm" placeholder="# of Years"></div>
+<div class="col-lg-12"><h5>Severity</h5></div>
+<div class="col-lg-2 form-group">
+    <div class="col-lg-4">
+        <button type="button" class="btn btn-default btn-sm" ng-model="selectedSeverity" data-html="1" data-multiple="1" data-animation="am-flip-x" bs-options="severities.value as severities.label for severities in selectSeverity" bs-select>
+            Action <span class="caret"></span>
+        </button>
+    </div>
+</div> <!-- Physical Examination -->
+<div class="col-lg-12"><textarea rows="2" ng-model="department.HPI_Surgery" class="form-control" placeholder="History of Present illness.."></textarea></div>
+<div class="col-lg-12"><h4>Physical Examination</h4></div>
+<div class="col-lg-12"><h5>Skin</h5></div>
+<div class="col-lg-12"><textarea rows="2" ng-model="department.Skin_Surgery" class="form-control" placeholder="Skin Descriptions . . ."></textarea></div>
+<div class="col-lg-12"><h5>HEENT (Head, Eyes, Ears, Nose and Throat)</h5></div>
+<div class="col-lg-12 form-group">
+    <div class="col-lg-12">
+        <button type="button" class="btn btn-default btn-sm" ng-model="selectedHEENT" data-html="1" data-multiple="1" data-animation="am-flip-x" bs-options="heents.value as heents.label for heents in select3" bs-select>
+            Action <span class="caret"></span>
+        </button>
+    </div>
+</div><!-- HEENT -->
+<div class="col-lg-12"><textarea rows="2" ng-model="department.HEENTDescription_Surgery" class="form-control" placeholder="HEENT (Head, Eyes, Ears, Nose and Throat)"></textarea></div>
+<div class="col-lg-12"><h5>Chest and Lungs</h5></div>
+<div class="col-lg-12"><textarea rows="2" ng-model="department.CL_Surgery" class="form-control" placeholder="Chest and Lungs Descriptions . . ."></textarea></div>
+<div class="col-lg-12"><h5>Abdominal</h5></div>
+<div class="col-lg-12"><textarea rows="2" ng-model="department.Abdominal_Surgery" class="form-control" placeholder="Abdominal Descriptions . . ."></textarea></div>
+<div class="col-lg-12"><h5>Genitalia</h5></div>
+<div class="col-lg-12"><textarea rows="2" ng-model="department.Genitalia_Surgery" class="form-control" placeholder="Genitalia Descriptions . . ."></textarea></div>
+<div class="col-lg-12"><h5>Extremities</h5></div>
+<div class="col-lg-12"><textarea rows="2" ng-model="department.Extremities_Surgery" class="form-control" placeholder="Extremities Descriptions . . ."></textarea></div>
+<div class="col-lg-12"><h5>Rectal</h5></div>
+<div class="col-lg-12"><textarea rows="2" ng-model="department.Rectal_Surgery" class="form-control" placeholder="Rectal Descriptions . . ."></textarea></div>

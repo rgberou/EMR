@@ -1,0 +1,119 @@
+<div ng-include="'app/modals/dpsModal.html'"></div>
+<div ng-include="'app/modals/clinicRoomModal.html'"></div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><span ng-if="!clinicCookie.clinicname"><a href="" ng-click="selectClinic(user.syspk)">Select Clinic</a></span><span ng-if="clinicCookie.clinicname"><a href="" ng-click="selectClinic(user.syspk)">{{clinicCookie.clinicname}} - {{clinicCookie.clinicroom}}</a></span></h1>
+    <p style="font-size: 18px">User Profile</p>
+    <ol class="breadcrumb">
+        <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">User Profile</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <img data-toggle="tooltip" title="Update Photo" ng-dblclick="updatePhoto()" ng-src="{{detail.profilePic}}" width="150" style="border:3px solid black" height="150" alt="Profile Picture" class="img-responsive img-circle profile-user-img">
+                    <h3 class="profile-username text-center">{{detail.Name}}</h3>
+                    <p class="text-muted text-center">{{detail.Occupation}}</p>
+
+                    <hr>
+                    <strong><i class="fa fa-book margin-r-5"></i>  Education</strong>
+                    <p class="text-muted">
+                        {{}} --
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+                    <p class="text-muted">{{detail.Address}}</p>
+                    <hr>
+                    <p class="pull-right" ng-hide="user.syspk !== detail.SysPKUser">
+                        <a ng-href="/#/edit/{{user.syspk}}">Edit profile</a>
+                    </p>
+
+                </div><!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-md-9">
+            <form class="form-horizontal" role="form">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="/profile#clinics" data-toggle="tab">Clinics</a></li>
+                        <li class=""><a href="/profile#society" data-toggle="tab">Society</a></li>
+                        <li class=""><a href="/profile#patient" data-toggle="tab">Patient Lists</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!--- Clinical Notes --->
+                        <div class="active tab-pane" id="clinics">
+                            <div class="row">
+                                <div class="col-lg-12"><h4>Clinics - <a style="cursor: pointer" ng-click="addClinic()">(Add Clinic)</a></h4></div>
+                                <div class="col-md-12">
+                                    <div ng-if="user.rights !== 'secretary'" class="box-body">
+                                        <div class="row col-lg-12" ng-repeat="clinic in rclinics">
+                                            <h5>{{clinic.clinicroom.clinic.ClinicName_Clinic}} - {{clinic.clinicroom.RoomNumber_CRoom}} - <span><a  style="cursor: pointer" ng-click="addSecretary(clinic)">(Add Secretary)</a></span></h5>
+                                            <div ng-repeat="empl in clinic.doctorempljunctions">
+                                                <p> &nbsp;&nbsp;&nbsp;&nbsp; {{empl.employee.Name_Empl}}  <i class="fa fa-remove" style="color:red;" ng-click="removeSecretary(empl)" data-toggle="tooltip" title="Delete"></i></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--- Medical Society --->
+                        <div class="tab-pane" id="society">
+                            <div class="row">
+                                <div class="col-lg-12"><h4>Medical Society</h4></div>
+                                <div class="col-md-12">
+                                    <div ng-if="user.rights !== 'secretary'" class="box-body">
+                                        <div class="row col-lg-12" ng-repeat="society in societies">
+                                            <h5>{{society.ClinicName_Clinic}} <span><a  style="cursor: pointer" ng-click="addSecretary(clinic)">(Add Society or Chapter)</a></span></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--- Patients --->
+                        <div class="tab-pane" id="patient">
+                            <div class="row">
+                                <div class="col-lg-12"><h4>Patient Lists</h4></div>
+                                <div class="col-md-12">
+                                    <div class="box-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Right Sidebar -->
+
+<aside style="position: fixed;"  class="control-sidebar control-sidebar-light">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li><a href="#control-sidebar-home-tab" data-toggle="tab"></a></li>
+    </ul>
+    <div class="tab-content">
+        <!-- Home tab content -->
+        <div>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript::;">
+                        <i class="menu-icon"></i>
+                        <div class="menu-info">
+                        </div>
+                    </a>
+                </li>
+            </ul><!-- /.control-sidebar-menu -->
+        </div><!-- /.tab-pane -->
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
+</div>

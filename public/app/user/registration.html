@@ -1,0 +1,142 @@
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Registration Form</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group row">
+                        <label for="lastname" class="col-lg-2 control-label">Last Name:</label>
+                        <div class="col-lg-4"><input ng-model="doctor.LastName_Doctor" placeholder="Last Name" class="form-control input-sm" id="lastname"></div>
+                        <label for="lastname" class="col-lg-2 control-label">First Name:</label>
+                        <div class="col-lg-4"><input ng-model="doctor.FirstName_Doctor" placeholder="First Name" class="form-control input-sm"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lastname" class="col-lg-2 control-label">Middle Name:</label>
+                        <div class="col-lg-4"><input ng-model="doctor.MiddleName_Doctor" placeholder="Middle Name" class="form-control input-sm"></div>
+                        <label for="lastname" class="col-lg-2 control-label">Ext. Name:</label>
+                        <div class="col-lg-4"><input ng-model="doctor.ExtensionName_Doctor" placeholder="Extension Name (Sr,Jr, etc.)" class="form-control input-sm"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 control-label">Birthdate:</label>
+                        <div class="col-lg-4"><input ng-model="doctor.Birthdate_Doctor" type="text" class="form-control input-sm" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask id="datemask"></div>
+                        <label for="sex" class="col-lg-2 control-label">Sex:</label>
+                        <div class="col-lg-4">
+                            <select ng-model="doctor.Gender_Doctor" class="form-control input-sm" id="sex">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="add" class="col-lg-2 control-label">Address:</label>
+                        <div class="col-lg-10"><input ng-model="doctor.Address_Doctor" placeholder="Address" class="form-control input-sm" id="add"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="status" class="col-lg-2 control-label">Status:</label>
+                        <div class="col-lg-4">
+                            <select ng-model="dcotor.Status_Doctor" class="form-control input-sm" id="status">
+                                <option>Single</option>
+                                <option>Married</option>
+                                <option>Annuled</option>
+                                <option>Separated</option>
+                            </select>
+                        </div>
+                        <label for="contact" class="col-lg-2 control-label">Contact #:</label>
+                        <div class="col-lg-4"><input ng-model="doctor.ContactNumber_Doctor" placeholder="Contact Number" class="form-control input-sm" id="contact"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="doctorType" class="col-lg-2 control-label">Account Type:</label>
+                        <div class="col-lg-4">
+                            <select ng-model="doctor.DoctorType_Doctor" class="form-control input-sm" id="doctorType">
+                                <option disabled selected value="">Select Account Type</option>
+                                <option value="Student">Student</option>
+                                <option value="Government Physician">Government Physician</option>
+                                <option value="Private Resident">Private Resident</option>
+                                <option value="Practicing Physician">Practicing Physician (Premium Account)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row" ng-if="doctor.DoctorType_Doctor === 'Student'">
+                        <label for="school" class="col-lg-2 control-label">School:</label>
+                        <div class="col-lg-10"><input ng-model="doctor.School_Doctor" placeholder="School" class="form-control input-sm" id="school"></div>
+                    </div>
+                    <div class="form-group row" ng-if="doctor.DoctorType_Doctor === 'Student'">
+                        <label for="address" class="col-lg-3 control-label">School Address:</label>
+                        <div class="col-lg-9"><input ng-model="doctor.SchoolAddress_Doctor" placeholder="School Address" class="form-control input-sm" id="address"></div>
+                    </div>
+                    <div class="form-group row" ng-if="doctor.DoctorType_Doctor === 'Student'">
+                        <label for="id" class="col-lg-2">School ID:</label>
+                        <div class="col-lg-4"><input ng-model="doctor.SchoolID_Doctor" placeholder="School ID" class="form-control input-sm" id="id"></div>
+                    </div>
+                    <div class="form-group row" ng-if="doctor.DoctorType_Doctor === 'Government Physician' || doctor.DoctorType_Doctor === 'Private Resident' || doctor.DoctorType_Doctor === 'Practicing Physician'">
+                        <label for="training" class="col-lg-3 control-label">Res. Training Program:</label>
+                        <div class="col-lg-9"><input ng-model="doctor.TrainingInstitution_Doctor" placeholder="What Hospital? What Department?" class="form-control input-sm" id="training"></div>
+                    </div>
+                    <div class="form-group row" ng-if="doctor.DoctorType_Doctor === 'Government Physician' || doctor.DoctorType_Doctor === 'Private Resident' || doctor.DoctorType_Doctor === 'Practicing Physician'">
+                        <label for="prc" class="col-lg-2 control-label">PRC Lic. #:</label>
+                        <div class="col-lg-10"><input ng-model="doctor.License_Doctor" placeholder="PRC License #" class="form-control input-sm" id="prc"></div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">User Account</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group row">
+                        <label for="username" class="col-lg-2 control-label">Username:</label>
+                        <div class="col-lg-10"><input  ng-model="user.UserName_User" placeholder="Username" class="form-control input-sm" id="username"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-lg-2 control-label">Password:</label>
+                        <div class="col-lg-10"><input ng-model="user.Password_User" placeholder="Password" class="form-control input-sm" id="password"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="eaddress" class="col-lg-2 control-label">Email:</label>
+                        <div class="col-lg-10"><input ng-model="user.EmailAdd_User" placeholder="Email Address" class="form-control input-sm" id="eaddress"></div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-primary" type="submit" ng-click="signup()"><i class="fa fa-sign-in"></i> Sign Up</button>
+                        <a href="#/login" class="btn btn-default btn-sm" data-dismiss="modal">Back to Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">EMR</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <strong><i class="fa fa-book"></i>  EMR</strong>
+                    <p class="">
+                        An EMR is a digital version of a paper chart in a clinician's office.
+                        It contains the medical and treatment history of the patients in one practice.
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Benefits of Electronic Medical Records</strong>
+                    <p>
+                        An EMR is more beneficial than paper records because it allows providers to:
+                    <ul>
+                        <li><b>Track</b> data over time</li>
+                        <li><b>Identify</b> patients who are due for preventive visits and screenings</li>
+                        <li><b>Monitor</b> how patients measure up to certain parameters, such as vaccinations and blood pressure readings</li>
+                        <li><b>Improve</b> overall quality of care in a practice</li>
+                    </ul>
+                    </p>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+</section>
+<script>
+    $("#datemask").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+    $('body').removeClass('control-sidebar-open');
+</script>
