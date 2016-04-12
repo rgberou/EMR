@@ -36,7 +36,7 @@ app.controller('MainCtrl', ['$scope', '$auth', '$rootScope', '$cookieStore', 'Ba
     var user = $cookieStore.get('globals') || undefined;
     var clinic = $cookieStore.get('clinic') || undefined;
     var olUsers=oluserDataFactory.getOLDoctors();
-        $scope.olUsers=olUsers;
+        $scope.userlist=olUsers;
     $rootScope.getClinicsOfUser = function(syspkuser, userrights){
         userDataFactory.getDPS(syspkuser, userrights).then(function(dps){
             var syspkdps = '';

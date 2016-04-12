@@ -10,7 +10,7 @@ body{
 	right: 20px;
 	background: white;
 	width: 250px;
-	
+	z-index: 9999;
 	border-radius: 5px 5px 0px 0px;
 }
 
@@ -25,7 +25,7 @@ body{
 .close{
 	float:right;
 	padding-left:5px;
-	padding-right:5px;  
+	padding-right:5px;
 }
 
 .msg_header{
@@ -40,7 +40,7 @@ body{
 	font-size: 12px;
 	height: 250px;
 	overflow: auto;
-	overflow-x:hidden; 
+	overflow-x:hidden;
 }
 
 .msg_box{
@@ -52,27 +52,35 @@ body{
 
 .msg_input{
 	border:transparent;
-	border-top: 2px solid #1abc9c; 
+	border-top: 2px solid #1abc9c;
 	width:100%;
- 	margin:5px 0;
-	
+	margin:5px 0;
+
 }
 
 .users{
 	cursor: pointer;
-	padding: 20px 25px ;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 25px;
 	position: relative;
 }
 
-.users:before{
+.users::after{
 	content: "";
 	position: absolute;
 	background: #27ae60;
 	width: 10px;
 	height: 10px;
 	left: 10px;
-	top: 23px;
+	top: 6px;
 	border-radius: 5px;
+}
+
+li{
+	list-style-image: none;
+	list-style: none;
+	list-style-type: none;
 }
 
 .msg_a{
@@ -94,7 +102,7 @@ body{
 	width: 0px;
 	height: 0px;
 	top: 7px;
-    left: -19px;
+	left: -19px;
 	border:10px solid;
 	border-color: transparent #ecf0f1 transparent transparent;
 }
@@ -118,7 +126,8 @@ body{
 	width: 0px;
 	height: 0px;
 	top: 7px;
-    right: -19px;
+	right: -19px;
 	border:10px solid;
 	border-color: transparent transparent transparent #bdc3c7;
 }
+

@@ -32,10 +32,12 @@
   <body class="hold-transition skin-blue sidebar-mini fixed layout-fixed">
 
   <div ng-show="isAuthenticated()" class="chat_box">
-      <div class="chat_header">Chatbox</div>
-      <div class="chat_body">
-        <div class="users">{{user.name}}</div>
+    <div class="chat_header">Chatbox</div>
+    <div class="chat_body">
+      <div>
+        <li ng-repeat="oluser in userlist" class="users">{{oluser.UserName_OLUser}}</li>
       </div>
+    </div>
   </div>
 
 
