@@ -64,13 +64,16 @@ app.controller('UserListCtrl', ['$scope', '$rootScope', '$location', '$auth', 't
         };
     }]);
 
-app.controller('LogoutCtrl', ['$auth','$location','oluserDataFactory', function($auth, $location,oluserDataFactory){
+app.controller('LogoutCtrl', ['$auth','$location','oluserDataFactory','$rootScope', function($auth, $location,oluserDataFactory,$rootScope){
+
     $auth.logout()
         .then(function() {
-            oluserDataFactory.deleteOLUser($auth.getToken());
+            //oluserDataFactory.deleteOLUser($auth.getToken());
+            oluserDataFactory.deleteOLUser($rootScope.user.syspk);
             $auth.removeToken();
             $auth.removeCookie('globals');
             $auth.removeCookie('clinic');
+
             //toastr.info('You have been logged out');
             $location.path('/login');
         });
@@ -136,12 +139,15 @@ app.controller('LoginCtrl', ['$scope', '$rootScope', '$location', '$auth', 'Cook
                     /////update token
                     $scope.onlineUser.Token_OLUser = $auth.getToken();
                     $scope.onlineUser.UserName_OLUser = $scope.user.UserName_User;
+
                     oluserDataFactory.getCurrentUserByUserName($scope.user.UserName_User).then(function(data){
                         if(data.data.length === 0) {
                             $rootScope.onlineUser.SysPK_OLUser = rfc4122.v4();
+                            $scope.onlineUser.SysFK_UserID=$rootScope.user.syspk;
                             oluserDataFactory.addOLUser($scope.onlineUser);
                         }else{
                             $rootScope.onlineUser.SysPK_OLUser = data.data[0].SysPK_OLUser
+                            $scope.onlineUser.SysFK_UserID=$rootScope.user.syspk;
                             oluserDataFactory.updateOLUser($scope.onlineUser);
                         }
                     });

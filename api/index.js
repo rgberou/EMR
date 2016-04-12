@@ -58,7 +58,7 @@ exports.init = function init(){
     app.get('/api/users',ensureAuthenticated, userRoutes.getUsers);
     app.get('/api/getUserBySysPK/:syspk', ensureAuthenticated, userRoutes.getUserBySysPK);
     app.get('/api/getUserByUsername/:username', userRoutes.getUserByUsername);
-    app.delete('/api/deleteOnlineUser/:token', userRoutes.deleteOnlineUser);
+    app.delete('/api/deleteOnlineUser/:userid', userRoutes.deleteOnlineUser);
     app.get('/api/getDPS/:syspkuser/:userright', userRoutes.getDPS)
 
     app.get('/api/getPatients/:syspkdoc/:syspkclinic',ensureAuthenticated, patientRoutes.getPatients);

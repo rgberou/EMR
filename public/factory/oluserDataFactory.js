@@ -28,8 +28,12 @@ app.factory('oluserDataFactory',function($http, $auth){
         return $http.get(urlBase + '/onlineusertoken/' + $auth.getToken());
     };
 
-    olusersDataFactory.deleteOLUser = function(token){
+    /*olusersDataFactory.deleteOLUser = function(token){
         return $http.delete(urlBase + '/api/deleteOnlineUser/' + token);
+    };*/
+
+    olusersDataFactory.deleteOLUser = function(userid){
+        return $http.delete(urlBase + '/api/deleteOnlineUser/' + userid);
     };
 
     return olusersDataFactory;

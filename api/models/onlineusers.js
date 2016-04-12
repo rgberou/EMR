@@ -12,6 +12,10 @@ exports.olusermodel = function onlineusers(sequelize, Sequelize){
             type:Sequelize.STRING,
             allowNull:false
         },
+        SysFK_UserID:{
+            type:Sequelize.STRING,
+            allowNull:false
+        },
         UserName_OLUser:{
             type: Sequelize.TEXT,
             allowNull:false

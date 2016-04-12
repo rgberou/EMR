@@ -41,12 +41,6 @@ exports.getUsers = function(req, res){
             res.jsonp(users);
         });
 };
-exports.getUsers = function(req, res){
-    User.findAll({}).then(
-        function(users){
-            res.jsonp(users);
-        });
-};
 
 exports.getUserByUsername = function(req, res) {
     User.findAll({where: {'UserName_User' : req.params.username}}).then(
@@ -77,10 +71,12 @@ exports.getToken = function(req, res) {
 }
 
 exports.deleteOnlineUser = function(req, res) {
-    OLUser.destroy({'Token_OLUser' : req.params.token}).then();
+    //OLUser.destroy({'Token_OLUser' : req.params.token}).then();
+    OLUser.destroy({'SysFK_UserID' : req.params.userid}).then();
 }
 
 //to get DPS data
+
 
 exports.getDPS = function(req, res) {
     if(req.params.userright === 'doctor'){
