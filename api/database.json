@@ -2,7 +2,7 @@
   "dev":
         {
           "driver": "mysql",
-          "user": "admin",
+          "user": "justinpush",
           "database": "devdb",
           "password": "123"
         },

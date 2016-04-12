@@ -14,17 +14,42 @@
     <link href="lib/bower_components/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet" >
     <link href="assets/css/myStyle.css" rel="stylesheet" >
     <link href="assets/css/slider.css" rel="stylesheet" >
+    <link href="assets/css/style.css" rel="stylesheet" >
+
     <link href="assets/css/image-crop-styles.css" rel="stylesheet" >
     <link href="assets/css/accesssoftDirective.css" rel="stylesheet" >
     <!-- Plugins -->
     <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="plugins/iCheck/all.css">
     <!--[if lt IE 9]>
+
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+
     <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini fixed layout-fixed">
+  <div class="chat_box">
+    <div class="chat_header">Chatbox</div>
+    <div class="chat_body">
+      <div class="users">{{user.name}}</div>
+    </div>
+  </div>
+
+  <div class="msg_box" style="right:290px">
+    <div class="msg_header users">{{user.name}}
+      <div class="close">x</div>
+    </div>
+    <div class="msg_wrap">
+      <div class="msg_body">
+        <div class="msg_a">This message from A</div>
+        <div class="msg_b">This message from B</div>
+        <div class="msg_insert"></div>
+      </div>
+      <div class="msg_footer"><textarea class="msg_input" cols="2" rows="4" placeholder="Type a message..."></textarea></div>
+    </div>
+  </div>
   <div ng-include="'app/modals/clinicModal.html'"></div>
     <div class="wrapper">
       <header class="main-header">
@@ -148,7 +173,10 @@
     <script src="lib/bower_components/jssor-slider/jssor.slider.mini.js"></script>
     <script src="app/app.js"></script>
 
+
     <!-- The File Upload distribution files -->
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script src="lib/bower_components/FileUpload/angular-file-upload-html5-shim.js"></script>
     <script src="lib/bower_components/FileUpload/angular-file-upload.js"></script>
     <!--Initialize Services-->
@@ -219,6 +247,7 @@
     <script src="plugins/select2/select2.full.min.js"></script>
     <!-- AdminLTE App -->
     <script src="lib/dist/js/app.js"></script>
+
 
     <!-- Page specific script -->
     <script type="text/ng-template" id="warning-dialog.html">
