@@ -31,10 +31,12 @@ app.controller('MainCtrl', ['$scope', '$auth', '$rootScope', '$cookieStore', 'Ba
     $rootScope.dps = {};
     $rootScope.rclinics = {};
 
+
     urlBase = 'http://' + $location.host() + ':' + $location.port();
     var user = $cookieStore.get('globals') || undefined;
     var clinic = $cookieStore.get('clinic') || undefined;
-
+    var olUsers=oluserDataFactory.getOLDoctors();
+        $scope.olUsers=olUsers;
     $rootScope.getClinicsOfUser = function(syspkuser, userrights){
         userDataFactory.getDPS(syspkuser, userrights).then(function(dps){
             var syspkdps = '';
@@ -182,6 +184,7 @@ app.controller('MainCtrl', ['$scope', '$auth', '$rootScope', '$cookieStore', 'Ba
             });
         }
     } //END
+
 
     isTokenMatch();
 }]);

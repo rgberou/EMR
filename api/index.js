@@ -54,17 +54,19 @@ exports.init = function init(){
         req.user = payload.sub;
         next();
     }
-
+    app.get('/api/getOnlineDoctors/', userRoutes.getOnlineDoctors);
     app.get('/api/users',ensureAuthenticated, userRoutes.getUsers);
     app.get('/api/getUserBySysPK/:syspk', ensureAuthenticated, userRoutes.getUserBySysPK);
     app.get('/api/getUserByUsername/:username', userRoutes.getUserByUsername);
+
     app.delete('/api/deleteOnlineUser/:userid', userRoutes.deleteOnlineUser);
     app.get('/api/getDPS/:syspkuser/:userright', userRoutes.getDPS)
 
     app.get('/api/getPatients/:syspkdoc/:syspkclinic',ensureAuthenticated, patientRoutes.getPatients);
     app.get('/api/getPatient/:syspk', ensureAuthenticated, patientRoutes.getPatientBySysPK);
 
-    app.get('/api/doctors',ensureAuthenticated, doctorRoutes.getDoctors);
+    //app.get('/api/doctors',ensureAuthenticated, doctorRoutes.getDoctors);
+    app.get('/api/doctors', doctorRoutes.getDoctors);
     app.get('/api/getDoctorByUserSysPK/:userSysPK',ensureAuthenticated, doctorRoutes.getDoctorByUserSysPK);
 
     app.get('/api/getDoctorsOfSecretary/:secPK',ensureAuthenticated, doctorRoutes.getDoctorsOfSecretary);

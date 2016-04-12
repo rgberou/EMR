@@ -35,12 +35,28 @@ var Doctor = doctormodel.doctormodel(sequelize, Sequelize);
 var Patient = patientmodel.patientmodel(sequelize, Sequelize);
 var Employee = employeemodel.employeemodel(sequelize, Sequelize);
 
+//relationships
+User.hasMany(OLUser, {foreignKey: 'SysFK_UserID'});
+OLUser.belongsTo(User, {foreignKey: 'SysFK_UserID'});
+
+exports.getOnlineDoctors = function(req, res){
+    OLUser.findAll({include: [{model:User,where: {AccessRights_User:'doctor'}}]}).then(
+        function(users){
+            if(users){
+                res.jsonp(users);
+            }else{
+                res.jsonp({success:false});
+            }
+
+        });
+};;
 exports.getUsers = function(req, res){
     User.findAll({}).then(
         function(users){
             res.jsonp(users);
         });
 };
+
 
 exports.getUserByUsername = function(req, res) {
     User.findAll({where: {'UserName_User' : req.params.username}}).then(

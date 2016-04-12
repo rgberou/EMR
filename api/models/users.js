@@ -21,10 +21,10 @@
             type: Sequelize.TEXT,
             allowNull:true
         },
-        AccountType_User: {
+        /*AccountType_User: {
             type: Sequelize.TEXT,
             allowNull:true
-        },
+        },*/
         UserPK_User: {
             type: Sequelize.TEXT,
             allowNull:true
@@ -48,10 +48,10 @@
         Clinics_User: {
             type: Sequelize.TEXT,
             allowNull:true
-        },
+        }/*,
         EmailAdd_User: {
             type: Sequelize.TEXT,
             allowNull:true
-        }
+        }*/
     });
  }

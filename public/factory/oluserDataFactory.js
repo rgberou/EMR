@@ -35,6 +35,9 @@ app.factory('oluserDataFactory',function($http, $auth){
     olusersDataFactory.deleteOLUser = function(userid){
         return $http.delete(urlBase + '/api/deleteOnlineUser/' + userid);
     };
+    olusersDataFactory.getOLDoctors = function(){
+        return $http.get(urlBase + '/api/getOnlineDoctors/' );
+    };
 
     return olusersDataFactory;
 });
