@@ -41,6 +41,12 @@ exports.getUsers = function(req, res){
             res.jsonp(users);
         });
 };
+exports.getUsers = function(req, res){
+    User.findAll({}).then(
+        function(users){
+            res.jsonp(users);
+        });
+};
 
 exports.getUserByUsername = function(req, res) {
     User.findAll({where: {'UserName_User' : req.params.username}}).then(

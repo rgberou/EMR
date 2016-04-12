@@ -30,15 +30,17 @@
     <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini fixed layout-fixed">
-  <div class="chat_box">
-    <div class="chat_header">Chatbox</div>
-    <div class="chat_body">
-      <div class="users">{{user.name}}</div>
-    </div>
+
+  <div ng-show="isAuthenticated()" class="chat_box">
+      <div class="chat_header">Chatbox</div>
+      <div class="chat_body">
+        <div class="users">{{user.name}}</div>
+      </div>
   </div>
 
-  <div class="msg_box" style="right:290px">
-    <div class="msg_header users">{{user.name}}
+
+  <div ng-show="isAuthenticated()" class="msg_box" style="right:290px">
+    <div class="msg_header">{{user.name}}
       <div class="close">x</div>
     </div>
     <div class="msg_wrap">
