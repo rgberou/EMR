@@ -43,13 +43,15 @@ exports.getOnlineDoctors = function(req, res){
     OLUser.findAll({include: [{model:User,where: {AccessRights_User:'doctor'}}]}).then(
         function(users){
             if(users){
-                res.jsonp(users);
+                res.json(users);
             }else{
                 res.jsonp({success:false});
             }
 
         });
-};;
+};
+
+
 exports.getUsers = function(req, res){
     User.findAll({}).then(
         function(users){

@@ -35,8 +35,13 @@ app.controller('MainCtrl', ['$scope', '$auth', '$rootScope', '$cookieStore', 'Ba
     urlBase = 'http://' + $location.host() + ':' + $location.port();
     var user = $cookieStore.get('globals') || undefined;
     var clinic = $cookieStore.get('clinic') || undefined;
-    var olUsers=oluserDataFactory.getOLDoctors();
-        $scope.userlist=olUsers;
+
+    oluserDataFactory.getOLDoctors().then(function(data){
+        $scope.userlist=data.data;
+        console.log($scope.userlist);
+    });
+
+
     $rootScope.getClinicsOfUser = function(syspkuser, userrights){
         userDataFactory.getDPS(syspkuser, userrights).then(function(dps){
             var syspkdps = '';

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	var socket=io.connect();
 	$('.chat_header').click(function(){
 		$('.chat_body').slideToggle('slow');
 

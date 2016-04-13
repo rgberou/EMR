@@ -19,7 +19,9 @@ exports.init = function init(){
         , jwt       = require('jsonwebtoken')
         ,cors       = require('cors')
         , app       = express();
-        //, socket = require('./socket');
+    var server = require('http').createServer(app);
+    var io = require('socket.io')(server);
+
 
     var userRoutes = require('./routes/userRoutes')
         , encounterRoutes = require('./routes/encounterRoutes')
@@ -274,7 +276,7 @@ exports.init = function init(){
             });
         });
     /////////// LAUNCH THE SERVER /////////////////
-    app.listen(port);
+    server.listen(port);
 
     //var server = http.createServer(app);
 

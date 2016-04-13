@@ -35,7 +35,7 @@
     <div class="chat_header">Chatbox</div>
     <div class="chat_body">
       <div>
-        <li ng-repeat="oluser in userlist" class="users">{{oluser.UserName_OLUser}}</li>
+        <li ng-repeat="oluser in userlist" class="users">{{oluser.user.Name_User}}</li>
       </div>
     </div>
   </div>
@@ -181,6 +181,7 @@
     <!-- The File Upload distribution files -->
     <script type="text/javascript" src="assets/js/script.js"></script>
     <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="lib/bower_components/FileUpload/angular-file-upload-html5-shim.js"></script>
     <script src="lib/bower_components/FileUpload/angular-file-upload.js"></script>
     <!--Initialize Services-->
