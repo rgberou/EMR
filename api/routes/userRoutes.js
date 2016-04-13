@@ -26,20 +26,47 @@ var sequelize = new Sequelize(
 var usermodel = require('../models/users');
 var olusermodel = require('../models/onlineusers');
 var doctormodel = require('../models/doctors');
+var express=require('express'),app=express();
+
 var patientmodel = require('../models/patients');
 var employeemodel = require('../models/employees');
-
 var User = usermodel.usermodel(sequelize, Sequelize);
 var OLUser = olusermodel.olusermodel(sequelize, Sequelize);
 var Doctor = doctormodel.doctormodel(sequelize, Sequelize);
 var Patient = patientmodel.patientmodel(sequelize, Sequelize);
 var Employee = employeemodel.employeemodel(sequelize, Sequelize);
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 //relationships
 User.hasMany(OLUser, {foreignKey: 'SysFK_UserID'});
 OLUser.belongsTo(User, {foreignKey: 'SysFK_UserID'});
+//
+
+
+
 
 exports.getOnlineDoctors = function(req, res){
+    io.on('connection', function(client) {
+        console.log("A User has Connected");
+        OLUser.findAll({include: [{model:User,where: {AccessRights_User:'doctor'}}]}).then(
+            function(err,users){
+                if(err) throw err;
+                for(var id in users){
+                    data.push(JSON.parse(user[id]));
+                }
+                console.log(data);
+
+
+                client.emit('output',json(data));
+
+            });
+    })
+
+};
+
+/*exports.getOnlineDoctors = function(req, res){
+
     OLUser.findAll({include: [{model:User,where: {AccessRights_User:'doctor'}}]}).then(
         function(users){
             if(users){
@@ -49,7 +76,7 @@ exports.getOnlineDoctors = function(req, res){
             }
 
         });
-};
+};*/
 
 
 exports.getUsers = function(req, res){

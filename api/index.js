@@ -23,6 +23,7 @@ exports.init = function init(){
     var io = require('socket.io')(server);
 
 
+
     var userRoutes = require('./routes/userRoutes')
         , encounterRoutes = require('./routes/encounterRoutes')
         , surgeryRoutes = require('./routes/surgeryRoutes')
@@ -168,6 +169,10 @@ exports.init = function init(){
                 timestamps: false
             }
         }
+
+
+
+
     );
 
     /////////// MODELS DEFINITIONS /////////////////
@@ -229,9 +234,45 @@ exports.init = function init(){
     var Hospitalization = hospitalizationmodel.hospitalizationmodel(sequelize, Sequelize);
     var Request = requestmodel.requestmodel(sequelize, Sequelize);
 
+    //socket io initialization
+
+    User.hasMany(OLUser, {foreignKey: 'SysFK_UserID'});
+    OLUser.belongsTo(User, {foreignKey: 'SysFK_UserID'});
+    io.on('connection', function(client) {
+        console.log("A User has Connected");
+        User.findAll({}).then(
+            function(err,user){
+
+                if(err) throw err;
+                for(var id in user){
+                    data.push(JSON.parse(user[id]));
+                }
+                console.log(data);
+
+
+               client.emit('output',json(data));
+            });
+    });
+    var listener = io.listen(server);
+    listener.sockets.on('connection', function(socket){
+        socket.emit('message', {'message': 'hello world'});
+    });
+    /*io.on('connection', function(client) {
+        console.log('Client connected...');
+
+        client.on('disconnect',function(){
+            console.log('Client disconnected...');
+        })
+
+    });*/
+
+    //
+
     /////////// MAGICAL PIECE OF CODE /////////////
     app.use(restful(sequelize));
     ///////////////////////////////////////////////
+
+
 
     function createJWT(user) {
         console.log("im here");
@@ -284,4 +325,6 @@ exports.init = function init(){
 
     console.log('Listening to port ' + port);
     ////////////////////////////////////////////////
+
+
 };

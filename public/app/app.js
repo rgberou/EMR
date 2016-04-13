@@ -35,11 +35,32 @@ app.controller('MainCtrl', ['$scope', '$auth', '$rootScope', '$cookieStore', 'Ba
     urlBase = 'http://' + $location.host() + ':' + $location.port();
     var user = $cookieStore.get('globals') || undefined;
     var clinic = $cookieStore.get('clinic') || undefined;
+    //getting online doctors
+        //socket io functionalities
 
-    oluserDataFactory.getOLDoctors().then(function(data){
-        $scope.userlist=data.data;
-        console.log($scope.userlist);
+
+        /*Socket.connect();
+
+        $scope.on('$locationchangestart',function(event){
+            Socket.disconnect(true);
+        })*/
+
+
+        //
+    oluserDataFactory.getOLDoctors().then(function(){
+        try{
+            var socket=io.connect('http://127.0.0.1:3001');
+        }catch(e){
+
+        }
+        if(socket!==undefined){
+            console.log('Ok');
+            socket.on('output',function(data){
+                console.log(data);
+            });
+        }
     });
+
 
 
     $rootScope.getClinicsOfUser = function(syspkuser, userrights){

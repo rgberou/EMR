@@ -145,6 +145,26 @@ app.controller('LoginCtrl', ['$scope', '$rootScope', '$location', '$auth', 'Cook
                             $rootScope.onlineUser.SysPK_OLUser = rfc4122.v4();
                             $scope.onlineUser.SysFK_UserID=$rootScope.user.syspk;
                             oluserDataFactory.addOLUser($scope.onlineUser);
+                            //socket io functionalities
+                            /*if($rootScope.user.AccessRights_User=='doctor'){
+                                var getOLuser=function(data){
+                                    return document.querySelector(data);
+                                },uname=($rootScope.user.name);
+                                try{
+                                    var socket=io.connect(urlBase);
+                                }catch(e){
+
+                                }
+                                if(socket!==undefined){
+                                    console.log('Ok');
+                                    socket.emmit('input',function(){
+                                        name:$rootScope.user.name
+                                    });
+                                }
+                            }else{
+                                console.log('not a doctor');
+                            }*/
+                            //
                         }else{
                             $rootScope.onlineUser.SysPK_OLUser = data.data[0].SysPK_OLUser
                             $scope.onlineUser.SysFK_UserID=$rootScope.user.syspk;

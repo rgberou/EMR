@@ -11,6 +11,9 @@ app.factory('oluserDataFactory',function($http, $auth){
     olusersDataFactory.addOLUser = function(oluser){
         return $http.post(urlBase + '/api/onlineusers', oluser);
     };
+    olusersDataFactory.addOLUser = function(oluser){
+        return $http.post(urlBase + '/api/updateolusers', oluser);
+    };
 
     olusersDataFactory.updateOLUser = function(oluser){
         return $http.put(urlBase + '/api/onlineusers/' + oluser.SysPK_OLUser,oluser);
@@ -38,6 +41,8 @@ app.factory('oluserDataFactory',function($http, $auth){
     olusersDataFactory.getOLDoctors = function(){
         return $http.get(urlBase + '/api/getOnlineDoctors/' );
     };
+
+
 
     return olusersDataFactory;
 });
