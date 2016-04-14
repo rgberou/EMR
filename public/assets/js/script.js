@@ -28,6 +28,8 @@ $(document).ready(function(){
 				$('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
 			}
 		});
+	setInterval(function(){
 
+	},1000);
 
 });

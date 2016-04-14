@@ -20,7 +20,7 @@ exports.init = function init(){
         ,cors       = require('cors')
         , app       = express();
     var server = require('http').createServer(app);
-    var io = require('socket.io')(server);
+    var io = require('socket.io').listen(server);
 
 
 
@@ -68,8 +68,8 @@ exports.init = function init(){
     app.get('/api/getPatients/:syspkdoc/:syspkclinic',ensureAuthenticated, patientRoutes.getPatients);
     app.get('/api/getPatient/:syspk', ensureAuthenticated, patientRoutes.getPatientBySysPK);
 
-    //app.get('/api/doctors',ensureAuthenticated, doctorRoutes.getDoctors);
-    app.get('/api/doctors', doctorRoutes.getDoctors);
+    app.get('/api/doctors',ensureAuthenticated, doctorRoutes.getDoctors);
+
     app.get('/api/getDoctorByUserSysPK/:userSysPK',ensureAuthenticated, doctorRoutes.getDoctorByUserSysPK);
 
     app.get('/api/getDoctorsOfSecretary/:secPK',ensureAuthenticated, doctorRoutes.getDoctorsOfSecretary);
@@ -236,27 +236,30 @@ exports.init = function init(){
 
     //socket io initialization
 
-    User.hasMany(OLUser, {foreignKey: 'SysFK_UserID'});
+    io.sockets.on('connection',function(socket){
+        socket.on('oluser',function(data){
+
+            io.sockets.emit('newuser',data);
+
+        });
+    })
+
+    /*User.hasMany(OLUser, {foreignKey: 'SysFK_UserID'});
     OLUser.belongsTo(User, {foreignKey: 'SysFK_UserID'});
     io.on('connection', function(client) {
         console.log("A User has Connected");
         User.findAll({}).then(
             function(err,user){
-
                 if(err) throw err;
-                for(var id in user){
-                    data.push(JSON.parse(user[id]));
-                }
-                console.log(data);
 
 
-               client.emit('output',json(data));
+                //console.log(" Connected");
+                //console.log(user.AccessRights_User);
+               client.emit('output',oluser);
             });
     });
-    var listener = io.listen(server);
-    listener.sockets.on('connection', function(socket){
-        socket.emit('message', {'message': 'hello world'});
-    });
+    */
+
     /*io.on('connection', function(client) {
         console.log('Client connected...');
 

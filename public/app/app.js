@@ -47,7 +47,11 @@ app.controller('MainCtrl', ['$scope', '$auth', '$rootScope', '$cookieStore', 'Ba
 
 
         //
-    oluserDataFactory.getOLDoctors().then(function(){
+        (function update() {
+            $timeout(update, 1000);
+         
+        }());
+    /*oluserDataFactory.getOLDoctors().then(function(){
         try{
             var socket=io.connect('http://127.0.0.1:3001');
         }catch(e){
@@ -59,8 +63,20 @@ app.controller('MainCtrl', ['$scope', '$auth', '$rootScope', '$cookieStore', 'Ba
                 console.log(data);
             });
         }
-    });
+    });*/
+        /*try{
+            var socket=io.connect();
+            console.log('its working');
+        }catch(e){
 
+        }
+        if(socket!==undefined){
+            console.log('Ok');
+            socket.on('output',function(data){
+                console.log('nadawat ang output');
+                //console.log(data.name);
+            });
+        }*/
 
 
     $rootScope.getClinicsOfUser = function(syspkuser, userrights){
